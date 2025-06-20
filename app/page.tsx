@@ -26,7 +26,7 @@ import Testimonial from "@/components/Testimonial";
 gsap.registerPlugin(ScrollTrigger);
 
 // Reusable hook to apply animation
-function useScrollFadeIn(ref: React.RefObject<HTMLDivElement>) {
+function useScrollFadeIn(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const el = ref.current;
     if (el) {
