@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import Cards from "@/components/Cards";
 import Companies from "@/components/Companies";
 import Download from "@/components/Download";
@@ -19,28 +23,64 @@ import NoLimits from "@/components/NoLimits";
 import TabbedImageBlock from "@/components/TabbedImageBlock";
 import Testimonial from "@/components/Testimonial";
 
+gsap.registerPlugin(ScrollTrigger);
+
+// Reusable hook to apply animation
+function useScrollFadeIn(ref: React.RefObject<HTMLDivElement>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (el) {
+      gsap.fromTo(
+        el,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }, [ref]);
+}
+
+// Scroll wrapper component
+function Reveal({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollFadeIn(ref);
+  return <div ref={ref}>{children}</div>;
+}
+
 export default function HomePage() {
   return (
-    <div>
-      <Home />
-      {/* <div className="absolute right-0"> */}
-      <HeroSection />
-      <InfoSection />
-      {/* </div> */}
-      <HeroSection2 />
-      <Companies />
-      <Cards />
-      <HeroSection3 />
-      <Form />
-      <Download />
-      <NoLimits />
-      <HeroSection4 />
-      <Testimonial />
-      <TabbedImageBlock />
-      <Floating />
-      <FeatureShowcase />
-      <FAQ />
-      <HeroSection5 />
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-grow">
+        <Reveal><Home /></Reveal>
+        <Reveal><HeroSection /></Reveal>
+        <Reveal><InfoSection /></Reveal>
+        <Reveal><HeroSection2 /></Reveal>
+        <Reveal><Companies /></Reveal>
+        <Reveal><Cards /></Reveal>
+        <Reveal><HeroSection3 /></Reveal>
+        <Reveal><Form /></Reveal>
+        <Reveal><Download /></Reveal>
+        <Reveal><NoLimits /></Reveal>
+        <Reveal><HeroSection4 /></Reveal>
+        <Reveal><Testimonial /></Reveal>
+        <Reveal><TabbedImageBlock /></Reveal>
+        <Reveal><Floating /></Reveal>
+        <Reveal><FeatureShowcase /></Reveal>
+        <Reveal><FAQ /></Reveal>
+
+        {/* No animation for last 2 */}
+        <HeroSection5 />
+      </main>
+
       <Footer />
     </div>
   );

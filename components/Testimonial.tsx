@@ -1,10 +1,15 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { Card, CardContent } from "@/components/ui/card";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+
+// Register GSAP Plugin
+gsap.registerPlugin(ScrollTrigger);
 
 // SVG Icons
 const BoltIcon = () => (
@@ -42,24 +47,11 @@ const StarIcon = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path
-      d="M28.3597 14.4404L31.1307 8.56562C31.4861 7.81146 32.5139 7.81146 32.8693 8.56562L35.6403 14.4404L41.8363 15.3883C42.6312 15.5099 42.948 16.5326 42.3725 17.1194L37.8899 21.689L38.9477 28.1448C39.0837 28.9739 38.2523 29.6059 37.5408 29.2144L32 26.1647L26.4592 29.2144C25.7478 29.6059 24.9163 28.9739 25.0522 28.1448L26.1101 21.689L21.6275 17.1194C21.0519 16.5326 21.3688 15.5099 22.1638 15.3883L28.3597 14.4404Z"
-      stroke="#155ADA"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
   </svg>
 );
 
 const CastleIcon = () => (
-  <svg
-    width="64"
-    height="64"
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
     <path
       d="M45.3333 58.6663H18.6667C15.7211 58.6663 13.3333 56.2786 13.3333 53.333V29.8175C13.3333 29.5015 13.2398 29.1927 13.0646 28.9298L8.26872 21.7361C8.09349 21.4732 8 21.1644 8 20.8486V6.93301C8 6.04935 8.71635 5.33301 9.6 5.33301H14.4C15.2837 5.33301 16 6.04935 16 6.93301V11.733C16 12.6167 16.7163 13.333 17.6 13.333H25.0667C25.9503 13.333 26.6667 12.6167 26.6667 11.733V6.93301C26.6667 6.04935 27.3829 5.33301 28.2667 5.33301H35.7333C36.6171 5.33301 37.3333 6.04935 37.3333 6.93301V11.733C37.3333 12.6167 38.0496 13.333 38.9333 13.333H46.4C47.2837 13.333 48 12.6167 48 11.733V6.93301C48 6.04935 48.7163 5.33301 49.6 5.33301H54.4C55.2837 5.33301 56 6.04935 56 6.93301V20.8486C56 21.1644 55.9064 21.4732 55.7312 21.7361L50.9355 28.9298C50.7603 29.1927 50.6667 29.5015 50.6667 29.8175V53.333C50.6667 56.2786 48.2789 58.6663 45.3333 58.6663Z"
       stroke="#155ADA"
@@ -69,13 +61,7 @@ const CastleIcon = () => (
 );
 
 const ClockIcon = () => (
-  <svg
-    width="64"
-    height="64"
-    viewBox="0 0 64 64"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
     <path
       d="M24 5.33301H40"
       stroke="#155ADA"
@@ -104,27 +90,27 @@ const ClockIcon = () => (
 const testimonials = [
   {
     icon: <BoltIcon />,
-    text: "Purus maecenas quis elit eu, aliquet. Tellus porttitor ut sollicitudin sit non fringilla. Quam nunc volutpat senectus neque eget amet pharetra, euismod. Tempus, nunc, molestie imperdiet curabitur commodo euismod.",
+    text: "Purus maecenas quis elit eu, aliquet. Tellus porttitor ut sollicitudin sit non fringilla.",
     name: "Jane Cooper",
-    avatar: "/avatars/avatar1.jpg",
+    avatar: "/avatar.jpg",
   },
   {
     icon: <StarIcon />,
-    text: "Vehicula sit sit pharetra bibendum ut risus accumsan. Purus, in metus, enim, ipsum morbi euismod pellentesque. Mattis pharetra accumsan eget est mi enim, id. Sit quam tortor eu tellus non, in euismod integer.",
+    text: "Vehicula sit pharetra bibendum ut risus accumsan. Purus, in metus, enim, ipsum morbi.",
     name: "Ralph Edwards",
-    avatar: "/avatars/avatar2.jpg",
+    avatar: "/avatar.jpg",
   },
   {
     icon: <CastleIcon />,
-    text: "Viverra lacus suspendisse elit, adipiscing orci, non turpis etiam sapien. Viverra blandit sem neque pretium. Duis enim semper fermentum consequat aenean libero. Blandit porta leo condimentum dolor, nisi, aliquet ante laoreet.",
+    text: "Viverra blandit sem neque pretium. Duis enim semper fermentum consequat aenean libero.",
     name: "Courtney Henry",
-    avatar: "/avatars/avatar3.jpg",
+    avatar: "/avatar.jpg",
   },
   {
     icon: <ClockIcon />,
-    text: "Hendrerit augue ut non quis integer netus. Sit rhoncus magnis habitant. Egestas amet habitant tellus ornare. Hendrerit senectus. Mauris eget vitae praesent neque nec. Lorem justo libero viverra nulla rhoncus.",
+    text: "Hendrerit augue ut non quis integer netus. Sit rhoncus magnis habitant.",
     name: "Cameron Williamson",
-    avatar: "/avatars/avatar4.jpg",
+    avatar: "/avatar.jpg",
   },
 ];
 
@@ -135,11 +121,40 @@ export default function Testimonial() {
     scrollRef.current?.scrollBy({ left: offset, behavior: "smooth" });
   };
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".testimonial-header", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".testimonial-header",
+          start: "top 80%",
+        },
+      });
+      gsap.utils.toArray(".testimonial-card").forEach((el: any, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 40,
+          delay: i * 0.1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+        });
+      });
+    });
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="w-full bg-[#155ADA] text-white px-4 md:px-8 py-16 md:py-20 lg:py-24 font-sans">
       <div className="max-w-[1200px] mx-auto flex flex-col gap-10 md:gap-16">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="flex flex-col">
+        <div className="testimonial-header flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
             <h4 className="text-[#bfdbfe] text-lg font-semibold tracking-wide">
               Join other Sun harvesters
             </h4>
@@ -147,12 +162,10 @@ export default function Testimonial() {
               LOREM IPSUM DOLOR SIT AMET
             </h2>
             <p className="mt-4 text-white text-opacity-90 max-w-2xl text-base md:text-lg">
-              Dui euismod iaculis libero, aliquet vitae et elementum porttitor.
-              Eleifend mi tristique condimentum congue fusce nunc, donec magnis
-              commodo.
+              Dui euismod iaculis libero, aliquet vitae et elementum porttitor. Eleifend mi condimentum.
             </p>
           </div>
-          <Button className="bg-white text-[#1e3a8a] hover:bg-gray-100 px-6 py-3 rounded-md text-base font-semibold shadow-md md:self-start md:mt-2">
+          <Button className="bg-white text-[#1e3a8a] hover:bg-gray-100 px-6 py-3 rounded-md text-base font-semibold shadow-md">
             Lorem Ipsum
           </Button>
         </div>
@@ -161,19 +174,23 @@ export default function Testimonial() {
           <ScrollArea className="w-full pb-6">
             <div
               ref={scrollRef}
-              className="flex gap-6 lg:gap-8 xl:gap-10 overflow-x-auto scroll-smooth pb-4"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              className="flex gap-6 lg:gap-8 xl:gap-10 overflow-x-auto scroll-smooth pb-4 no-scrollbar"
+              style={{ scrollBehavior: "smooth" }}
+              onScroll={() => {
+                const el = scrollRef.current;
+                if (!el) return;
+                const maxScroll = el.scrollWidth / 2;
+                if (el.scrollLeft >= maxScroll) el.scrollLeft = 0;
+              }}
             >
-              {testimonials.map((item, index) => (
+              {[...testimonials, ...testimonials].map((item, index) => (
                 <Card
                   key={index}
-                  className="min-w-[280px] md:min-w-[300px] lg:min-w-[340px] max-w-[360px] bg-white text-black flex-shrink-0 flex flex-col justify-between p-6 md:p-8 rounded-xl shadow-lg border border-transparent hover:border-[#8dccff] hover:scale-105 transition-all duration-300"
+                  className="testimonial-card min-w-[280px] md:min-w-[300px] lg:min-w-[340px] max-w-[360px] bg-white text-black flex-shrink-0 flex flex-col justify-between p-6 md:p-8 rounded-xl shadow-lg border border-transparent hover:border-[#8dccff] hover:scale-105 transition-all duration-300"
                 >
                   <CardContent className="flex flex-col gap-4 p-0">
                     <div className="w-10 h-10 mb-2">{item.icon}</div>
-                    <p className="text-gray-800 text-sm md:text-base leading-relaxed">
-                      {item.text}
-                    </p>
+                    <p className="text-gray-800 text-sm md:text-base leading-relaxed">{item.text}</p>
                     <div className="flex items-center gap-3 mt-4">
                       <Image
                         src={item.avatar}
@@ -190,10 +207,9 @@ export default function Testimonial() {
                 </Card>
               ))}
             </div>
-            <ScrollBar orientation="horizontal" />
           </ScrollArea>
 
-          <div className="flex gap-4 mt-8 md:mt-10 justify-start">
+          <div className="flex gap-4 mt-8 justify-start">
             <Button
               className="bg-white text-[#1e3a8a] hover:bg-gray-100 rounded-full w-12 h-12 text-2xl font-bold shadow-md"
               onClick={() => scroll(-350)}

@@ -1,7 +1,11 @@
 "use client";
 
-import React from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import Image from "next/image";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const cardData = [
   {
@@ -27,17 +31,44 @@ const cardData = [
 ];
 
 const Cards = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (sectionRef.current) {
+      const elements = sectionRef.current.querySelectorAll(".card");
+
+      elements.forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: i * 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              toggleActions: "play none none none", // Play once, no reverse
+            },
+          }
+        );
+      });
+    }
+  }, []);
+
   return (
-    <section className="w-full bg-white py-18 px-10">
+    <section className="w-full bg-white py-18 px-10" ref={sectionRef}>
       {/* Section Heading */}
-      <div className="mb-12 ">
+      <div className="mb-12">
         <p className="text-sm font-semibold text-blue-700 uppercase">
           Lorem ipsum dolor sit amet
         </p>
         <h2 className="text-3xl my-3 font-bold uppercase text-black">
           Lorem ipsum dolor sit
         </h2>
-        <p className="text-sm font-semibold w-1/2">
+        <p className="text-sm font-semibold w-full md:w-1/2">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
           beatae molestias in? Dolor consectetur accusantium obcaecati? Tempora
           quam voluptatem hic aliquam ad est ipsum, quasi ea, soluta aspernatur
@@ -47,11 +78,11 @@ const Cards = () => {
       </div>
 
       {/* Grid */}
-      <div className="flex flex-wrap justify-center gap-20 max-w-6xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-12 sm:gap-14 md:gap-20 max-w-6xl mx-auto">
         {cardData.map((card, index) => (
           <div
             key={index}
-            className="bg-white w-full sm:w-[45%] md:w-[30%] rounded-xl shadow-md overflow-hidden flex flex-col"
+            className="card bg-white w-full sm:w-[45%] md:w-[30%] rounded-xl shadow-md overflow-hidden flex flex-col"
           >
             {/* Image */}
             <div className="relative w-full h-52">
