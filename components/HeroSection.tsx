@@ -63,14 +63,13 @@ const HeroSection = () => {
         </div>
 
         {/* Right Column */}
-        <div className="md:w-1/2 relative h-72 md:h-auto">
-          <Image
-            src="/bike_row.png"
-            alt="Row of motorcycles"
-            fill
-            className="object-cover rounded-lg md:rounded-l-none"
-          />
-        </div>
+       <Image
+  src="/bike_row.png"
+  alt="Row of motorcycles"
+  fill
+  className="object-cover rounded-lg md:rounded-l-none"
+/>
+
       </div>
 
       {/* Gradient Section */}
