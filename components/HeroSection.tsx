@@ -1,8 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import { Phone } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 const HeroSection = () => {
+  const [imgSrc, setImgSrc] = useState("/bike_row.png");
+
   return (
     <section className="py-16">
       <div className="flex flex-col md:flex-row bg-white p-6 max-w-7xl mx-auto mt-20 shadow-lg shadow-gray-900/40 rounded-lg overflow-hidden">
@@ -24,9 +29,21 @@ const HeroSection = () => {
           {/* Small Image Sections */}
           <div className="space-y-6">
             {[
-              { src: "/s1i1.png", alt: "Motorcycle rider", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare fermentum feugiat." },
-              { src: "/s1i2.png", alt: "Motorcycle lineup", text: "Lorem ipsum dolor sit amet, ac tellus faucibus urna ullamcorper id dui cursus. Venenatis." },
-              { src: "/s1i3.png", alt: "People talking", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl morbi metus gravida eu facilisi enim. Ut diam auctor tortor tincidunt." },
+              {
+                src: "/s1i1.png",
+                alt: "Motorcycle rider",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ornare fermentum feugiat.",
+              },
+              {
+                src: "/s1i2.png",
+                alt: "Motorcycle lineup",
+                text: "Lorem ipsum dolor sit amet, ac tellus faucibus urna ullamcorper id dui cursus. Venenatis.",
+              },
+              {
+                src: "/s1i3.png",
+                alt: "People talking",
+                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl morbi metus gravida eu facilisi enim. Ut diam auctor tortor tincidunt.",
+              },
             ].map(({ src, alt, text }, i) => (
               <div key={i} className="flex items-start gap-4">
                 <div className="relative w-20 h-20 flex-shrink-0 rounded overflow-hidden">
@@ -65,10 +82,11 @@ const HeroSection = () => {
         {/* Right Column */}
         <div className="md:w-1/2 relative h-72 md:h-auto">
           <Image
-            src={`${"/bike_row.png"||"/BIKE7.png"}`}
+            src={imgSrc}
             alt="Row of motorcycles"
             fill
             className="object-cover rounded-lg md:rounded-l-none"
+            onError={() => setImgSrc("/BIKE7.png")}
           />
         </div>
       </div>
