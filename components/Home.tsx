@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { ArrowRight, Check } from "lucide-react";
-import Head from "next/head";
 import gsap from "gsap";
 
 export default function HomePage() {

@@ -133,7 +133,8 @@ export default function Testimonial() {
           start: "top 80%",
         },
       });
-      gsap.utils.toArray(".testimonial-card").forEach((el: any, i) => {
+     gsap.utils.toArray<HTMLElement>(".testimonial-card").forEach((el, i) => {
+
         gsap.from(el, {
           opacity: 0,
           y: 40,

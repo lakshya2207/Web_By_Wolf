@@ -13,7 +13,8 @@ const NoLimits = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(".animate-on-scroll").forEach((el: any, i: number) => {
+      gsap.utils.toArray<HTMLElement>(".animate-on-scroll").forEach((el, i) => {
+
         gsap.fromTo(
           el,
           { opacity: 0, y: 50 },
